@@ -1,0 +1,6 @@
+db:
+  type: 'mysql'
+  port: 3306
+  database: 'wayne'
+  username: 'root'
+  password: 'rladlsxogkftndlTek!!'

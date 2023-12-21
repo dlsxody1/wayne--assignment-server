@@ -1,6 +1,7 @@
 import { ApiField } from 'src/common/api.decorator';
+import * as Multer from 'multer';
 
-export default class PostRequest {
+export default class UploadRequest {
   @ApiField({
     type: String,
     description: '게시물 아이디',
@@ -23,7 +24,7 @@ export default class PostRequest {
     nullable: false,
     example: 'aosidjaosijd121',
   })
-  image: string;
+  image: Multer.File;
 
   @ApiField({
     type: String,
