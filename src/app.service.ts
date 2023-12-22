@@ -4,7 +4,7 @@ import * as Multer from 'multer';
 import { PostRepository } from './repository/post.repository';
 import UploadResponse from './response/upload.response';
 import PostRequest from './request/post.request';
-import { NotFoundError } from 'rxjs';
+import PostResponse from './response/post.response';
 
 @Injectable()
 export class AppService {
@@ -14,9 +14,15 @@ export class AppService {
     secretAccessKey: process.env.AWS_SECRET_KEY,
   });
 
-  // async getPosts(): Promise<PostsResponse> {
-  //   //게시물을 불러온다.
-  // }
+  async getAllPosts() {
+    const posts = await this.postRepository.getAllPosts();
+    return posts.map((post) => PostResponse.fromPost(post));
+  }
+
+  async getPostById(id: number) {
+    const post = await this.postRepository.getPostById(id);
+    return PostResponse.fromPost(post);
+  }
 
   async uploadImage(image: Multer.File) {
     const params = {
@@ -30,7 +36,6 @@ export class AppService {
 
   async uploadPost(request: PostRequest) {
     const post = await this.postRepository.createPost(request);
-
-    return UploadResponse.fromUpload(response);
+    return PostResponse.fromPost(post);
   }
 }

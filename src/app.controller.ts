@@ -1,24 +1,38 @@
 import {
   Body,
   Controller,
-  Get,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
 import { AppService } from './app.service';
-import { PostApi } from './common/api.decorator';
+import { GetApi, PostApi } from './common/api.decorator';
 import * as Multer from 'multer';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Posts } from './entity/post.entity';
 import PostRequest from './request/post.request';
+import PostResponse from './response/post.response';
+import PostsResponse from './response/posts.response';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get('/')
-  getHello(): string {
-    return 'hi';
+  @GetApi(() => PostsResponse, {
+    path: '/',
+    description: '전체 게시물 조회',
+    auth: false,
+  })
+  async getAllPosts() {
+    return this.appService.getAllPosts();
+  }
+
+  @GetApi(() => PostResponse, {
+    path: '/:id',
+    description: 'id에 해당하는 게시물',
+    auth: false,
+  })
+  async getPostById(id: number) {
+    return this.appService.getPostById(id);
   }
 
   @PostApi(() => Posts, {

@@ -14,4 +14,14 @@ export class PostRepository extends Repository<Posts> {
     await this.save(post);
     return post;
   }
+
+  async getAllPosts() {
+    return await this.find();
+  }
+
+  async getPostById(id: number) {
+    return await this.findOne({
+      where: { id },
+    });
+  }
 }

@@ -21,7 +21,7 @@ export default class PostRequest {
     type: String,
     description: '이미지 주소',
     nullable: false,
-    example: 'aosidjaosijd121',
+    example: 'http://mmmmm.....',
   })
   image: string;
 
