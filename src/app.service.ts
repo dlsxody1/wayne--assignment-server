@@ -24,12 +24,13 @@ export class AppService {
     return PostResponse.fromPost(post);
   }
 
-  async uploadImage(image: Multer.File) {
+  async uploadImage({ image }: { image: Multer.File }) {
     const params = {
       Bucket: process.env.AWS_S3_BUCKET,
       Key: String(image.originalname),
       Body: image.buffer,
     };
+    console.log(params);
     const response = await this.s3.upload(params).promise();
     return UploadResponse.fromUpload(response);
   }
