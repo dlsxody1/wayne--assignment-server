@@ -27,7 +27,7 @@ export class AppController {
   }
 
   @GetApi(() => PostResponse, {
-    path: '/:id',
+    path: 'detail/:id',
     description: 'id에 해당하는 게시물',
     auth: false,
   })
